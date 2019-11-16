@@ -1,0 +1,41 @@
+复习：
+   1.操作系统概念
+   2.多线程
+      1.认识多线程
+      2.如何创建线程对象 Thread
+           1.继承Thread  2.实现Runnable接口
+      3.Thread的相关操作
+          1.获取属性
+          2.如何启动多线程start()
+             start()   VS   run()
+          3.通知一个线程结束——中断线程
+Thread:
+     启动          start()
+     通知停止      interrupt()
+     等待线程停止  join()
+        join方法系列
+        获取当前线程的Thread对象引用
+        Thread.currentThread()
+   休眠线程：
+   Thread.sleep()
+   线程的状态：
+   1.理解什么是状态
+     线程是通过状态标识当前线程所处的一个情况
+     1.JVM内部管理线程
+     2.提供给代码的编写人员观察程序的运行情况的
+   2.多线程有哪些状态    Thread.State枚举
+
+3.线程状态的流转图
+  NEW   RUNNABLE  BLOCKED WAITING  TERMINATED  TIMED_WAITING
+  首先得有一个Thread对象
+  该对象的状态转移图
+  Thread thread=new Thread();//NEW
+  thread.start
+  isAlive()   判断线程是否还活着
+  线程只要处于不是NEW/TERMINATED就是活着的
+  //大概原理
+  join(){
+     while(thread.isAlive()){
+     }
+  }
+

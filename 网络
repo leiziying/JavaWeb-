@@ -1,0 +1,98 @@
+网络基本原理
+
+
+TCP/IP 协议簇
+
+应用层   进程（process）
+传输层   (TCP 分用的依据 port)
+网络层
+数据链路层
+物理层
+
+应用层数据     发送时    从上往下      封装
+应用层数据     接收时    从下往上      解封+分用
+
+ 1.局域网内，两台主机是如何通信的（链路层）  MAC
+   广播域    MAC地址是不是自己的
+   冲突域 信道共享   冲突检测/避免
+ 2.局域网内，两台主机，应用层对应用层如何通信
+ 3.跨局域网（互联网）中，两台主机（进程），应用层对应用层如何通信
+ TCP: 面向流、可靠、面向连接
+
+ 文字可以点击（超链接  hyper link）
+ HTTP  Hyper Text Transfer Protocol
+ HTML  Hyper Text Markup   Languague
+
+ Web前端的三支柱
+ html               树形结构描述文档  DOM树（Document Object Model）
+ css                样式（排版）
+ javascript/applet  代码逻辑（js）
+
+ 什么是客户端？提供资源的进程
+ 什么是服务器？请求资源的进程
+
+ URL(Unique  Resource Location)  标识一个资源
+ URI(Unique Resource Identifier)
+ URL是URI的子集（但是很多场景下，两个名字可以认为是一回事）
+ URL格式标准
+
+ https   默认443
+ http    80
+请求的格式（标准）行的方式进行组织
+ 请求行\r\n
+ 请求头1\r\n
+ 请求头2\r\n
+ 请求头3\r\n
+ 请求头4\r\n
+ 请求正文
+
+ http协议请求的格式
+ 请求方法   路径  版本
+ 请求头：值
+ ...
+ 空行
+ [请求正文]
+
+ http的方法
+ GET ：查询 /SELECT  最常用的方法
+ POST:插入 /INSERT
+ PUT:修改 /UPDATE
+ DELETE:删除/DELETE
+
+ GET 方法和 POST 方法的区别
+ GET方法不带请求正文 ，POST方法带请求正文
+ GET要带信息只能带在 query_string/segment
+ POST要带信息 query_string/segment/body
+ 方法不区分大小写（http协议上很多方法都不区分大小写）
+
+ 响应格式（response）
+ 响应行/状态行    版本  状态码  状态描述
+ 响应头：值
+ ...
+ 空行
+ 响应正文
+
+HTTP/1.0版本如何确定正文长度
+    1.Content-Length
+    2.关闭连接通知对方数据已经发送完毕
+HTTP/1.1版本多了一个方法
+   Chunk（链表）
+
+2xx  :   200  OK
+3xx  :   跳转
+4xx  :   400 Bad Request 404 Not Found   403没有权限
+
+http://www.baidu.com/old_path
+永久的搬家了 （永久重定向  permenent redirect）
+301  location：new/path
+
+总结：
+HTTP(超文本传输协议)   设计之初：为了传输 HTML/现在什么都在传
+0.应用层协议    默认端口是80
+  升级的安全协议   https   默认端口是 443
+1.URL
+2.分为 请求（request）和 响应（response）
+   客户端组织请求，发送，等待响应，解析
+   服务端等待请求，解析，组织响应，发送
+3.请求格式
+   请求行（方法 路径  版本）

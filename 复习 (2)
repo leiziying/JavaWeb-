@@ -1,0 +1,87 @@
+HTTP协议：超文本传输协议（应用层）
+业务-> HTTP  ->TCP
+URL(资源的唯一标识符)：
+格式：
+http://www.baidu.com/q?name=a&age=18#level
+分为两端：
+客户端：请求（request）   方法 路径 HTTP/1.0\n
+Content-type:text/html;charset=utf-8\n
+\n
+请求正文
+
+服务器发送的是响应（response）
+HTTP/1.0 状态码 描述\n
+响应头：值\n
+\n
+响应正文
+
+协议设计注意两个点：
+如何解包+如何分用
+
+请求：方法
+GET  99% 浏览器默认发送的就是GET方法（不能带请求正文）
+POST（可以带请求正文）
+PUT
+DELETE
+
+响应：
+2XX:成功
+3XX;跳转（搬家）
+4XX:客户端错误
+5XX：服务端错误
+
+请求头（header）:
+共用：
+Content-Type:
+    text/html   html
+    text/plain  纯文本
+    application/javascript   js脚本
+    application/json         json格式
+    image/jpeg               jpg图片
+Content-Length
+请求：
+Host:
+Cookie:
+响应：
+Set-Cookie:
+
+了解：
+如果要自定义 header
+X-Teacher:pepixin
+
+HTTP客户端：
+建立好一个TCP 80端口的连接上
+拼装 请求正文
+发送 请求
+接收 响应
+解析 响应
+HTTP 客户端：浏览器（了解）
+输入URL，回车
+1.解析url(连接哪个主机，哪个端口)
+2.建立连接（请求-响应的循环）
+3.html 结构/css  排版/js 逻辑
+4.浏览器内部附带 html 解析器、css引擎、js引擎
+5.在显示器上显示出结果
+
+12-27课程
+目的：写一个简单的HTTP服务器
+
+复习Socket
+TCPSocket编程：
+客户端：请求资源的一方 吃饭的人
+服务端：提供资源的一方 开饭店的人
+
+TCPServer->开饭店的角色
+1.选址                    new ServerSocket(80)
+2.接待来客                socket(客人来了)=server.accept();
+3.获取客人的要求          socket.getInputSream();//客户端发送的数据通过输入流给我
+4.做饭
+把饭给客户端端过去        socket.gteOutStream();把数据输出
+
+IO复习：
+Input/Output
+流式
+默认输入得到的流式 InputStream    字节格式（二进制格式）
+                   OutputStream
+Scanner(is,"UTF-8");//构造一个格式化的流
+

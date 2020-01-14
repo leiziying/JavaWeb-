@@ -1,0 +1,48 @@
+package echo.udp;
+
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Server {
+    private static final Map<String ,String> dict=new HashMap<>();
+    static{
+        dict.put("cat","喵喵");
+        dict.put("dog","旺旺");
+        dict.put("pig","佩奇");
+        dict.put("fish","好吃");
+    }
+    public static void main(String[] args) throws IOException {
+        //1.新建一个DatagramSocket
+        DatagramSocket  udpServerSocket=new DatagramSocket(9898);//在本机上起一个端口9898
+        while(true) {
+            byte[] receiveBuffer = new byte[1024];
+            //2.等着客户端来连接
+            DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+            udpServerSocket.receive(receivePacket);
+            InetAddress clientAddress = receivePacket.getAddress();//对方的地址
+            System.out.printf("我从%s：%d  收到了消息%n", clientAddress.getHostAddress(), receivePacket.getPort());//走到这就可以知道谁发给我数据了
+            System.out.printf("我一共收到了%d字节的数据%n", receivePacket.getLength());
+            //收到的数据是字节型的，需要转成字符型
+            String message = new String(receivePacket.getData(),
+                    0, receivePacket.getLength(),
+                    "UTF-8");//传入一个字节数组，起始位置，数组长度，编码
+            System.out.println(message);//最终发过来的数据就是message
+            //给客户端回消息
+            String responseMessage=dict.getOrDefault(message,"俺听不懂");
+            byte[]  sendBuffer=responseMessage.getBytes("UTF-8");
+            DatagramPacket sendPacket=new DatagramPacket(
+                    sendBuffer,
+                    sendBuffer.length,
+                    clientAddress,//客户端的地址
+                    receivePacket.getPort()//对方客户端的地址
+            );
+            udpServerSocket.send(sendPacket);
+        }
+       // udpServerSocket.close();//关闭socket
+    }
+}
